@@ -66,6 +66,10 @@ button:hover {
     border: 3px solid yellow;
 }
 
+.small-board.free {
+    border: 3px solid orange;
+}
+
 .small-board.won-x {
     background: rgba(0, 100, 255, 0.4);
 }

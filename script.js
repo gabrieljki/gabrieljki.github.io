@@ -232,12 +232,30 @@ function isFull(board) {
 
 function updateActiveBoard() {
 
-    document.querySelectorAll(".small-board").forEach(board => {
-        board.classList.remove("active");
-    });
+    const boards = document.querySelectorAll(".small-board");
 
-    if (nextBoard !== null) {
-        const boardDiv = document.querySelector(`.small-board[data-index='${nextBoard}']`);
-        if (boardDiv) boardDiv.classList.add("active");
-    }
+    boards.forEach(board => {
+        board.classList.remove("active");
+        board.classList.remove("free");
+
+        const index = parseInt(board.dataset.index);
+
+        // Se o board já foi vencido, nunca destaca
+        if (bigBoardState[index] !== null) return;
+
+        // 🔹 Caso exista board obrigatório
+        if (nextBoard !== null) {
+            if (index === nextBoard) {
+                board.classList.add("active");
+            }
+        }
+
+        // 🔹 Caso jogada seja livre
+        else {
+            // Destaca todos que ainda não foram vencidos
+            if (!isFull(smallBoards[index])) {
+                board.classList.add("free");
+            }
+        }
+    });
 }
